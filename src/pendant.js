@@ -143,10 +143,10 @@ module.exports = function(options, callback) {
 			return;
 
 		// if no controller, track that we need to tell the user
-		if (!gamepadController.isConnected) 
+		if (!gamepadController.isConnected()) 
 			firstCheck = true;
 		// tell user if there is no gamepad controller
-		if (!gamepadController.isConnected && !pendant_started && firstTime) {
+		if (!gamepadController.isConnected() && !pendant_started && firstTime) {
 			console.log("No controllers found; make sure your controller is connected");
 			firstCheck = false;
 		} 
