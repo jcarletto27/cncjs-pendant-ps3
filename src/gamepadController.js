@@ -75,18 +75,8 @@ module.exports = class {
         gamepad.init();
     }
 
-    gamepadEventAttach(id, state) {
-        console.log("attach", state.description + " (id " + id + ")");
-        this.connected = true;
-        this.event.emit('attach');
-    }
-
-    gamepadEventRemove(id) {
-        console.log("remove", id);
-        this.connected = false;
-        this.event.emit('remove');
-    }
-
+    // PUBLIC METHODS
+    
     // allow events to be listened to
     on(eventName, handler) {
         this.events.on(eventName, handler);
@@ -99,5 +89,22 @@ module.exports = class {
     isConnected() {
         return this.connected;
     }
+
+    // PRIVATE METHODS
+
+    gamepadEventAttach(id, state) {
+        console.log("attach", state.description + " (id " + id + ")");
+        this.connected = true;
+        this.events.emit('attach');
+    }
+
+    gamepadEventRemove(id) {
+        console.log("remove", id);
+        this.connected = false;
+        this.events.emit('remove');
+    }
+
+
+
 }
 

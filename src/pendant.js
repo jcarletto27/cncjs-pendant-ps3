@@ -129,38 +129,24 @@ module.exports = function(options, callback) {
 	// track that we do not yet have a pendant attached
     var pendant_started = false;
 
-	// locae and maintain a connection to the controller, including running the services.  This is run on a timer so we can
-	// continue to look for the controller once started, or again afterwards if the controller drops and wants to reconnect
-	setInterval(checkController, 1000);
-	firstCheck = true;
-
 	// initialize the gamepad system
 	gamepadController = new GamepadController();
-	gamepadController.on("attach", () => { console.log('attach event received'); });
-	gamepadController.on("remove", () => { console.log('remove event received'); });
+	gamepadController.on("attach", () => { console.log('Gamepad connected'); pendant_started = true; });
+	gamepadController.on("remove", () => { console.log('Gamepad lost'); pendant_started = false; });
 
-	function checkController(socket, controller) {
+	// tell user if there is no gamepad to be found...
+	if (!gamepadController.isConnected()) {
+		console.log("No gamepad controller found; please make sure it is connected");
+	}
+
+	// locate and maintain a connection to the controller, including running the services.  This is run on a timer so we can
+	// continue to look for the controller once started, or again afterwards if the controller drops and wants to reconnect
+	setInterval(checkController, 1000);
+	checkController(socket, controller) {
 		// if we already have a pendant, ignore this as we don't need to try to (re)connect
 		if (pendant_started)
 			return;
-
-		// if no controller, track that we need to tell the user
-		if (!gamepadController.isConnected() && pendant_started) {
-			firstCheck = true;
-			pendant_started = false;
-		}
-		// tell user if there is no gamepad controller
-		if (!gamepadController.isConnected() && !pendant_started && firstCheck) {
-			console.log("No controllers found; make sure your controller is connected");
-			firstCheck = false;
-		} 
-		// track if we have a pendant now
-		if (gamepadController.isConnected() && !pendant_started) {
-			console.log("Controller connected");
-			pendant_started = true;
-		}
-		return;	// hack out during tests
-
+		return;
 
 
 
