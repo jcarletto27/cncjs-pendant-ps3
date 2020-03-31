@@ -41,7 +41,7 @@ const fs = require('fs');
 const path = require('path');
 const io = require('socket.io-client');
 const jwt = require('jsonwebtoken');
-const GamepadController = require('gamepadController')
+const GamepadController = require('./gamepadController')
 
 // generate token
 const generateAccessToken = function(payload, secret, expiration) {

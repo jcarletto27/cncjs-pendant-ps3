@@ -76,5 +76,5 @@ module.exports = class {
         // Initialize the library
         gamepad.init();
     }
-
+}
 
