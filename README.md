@@ -12,7 +12,7 @@ This is a fork of the original [cncjs-pendant-ps3 driver](https://github.com/cnc
 * Improvements to README documentation
 * Works with any joystick (not just PS3)
     * This has a small loss of functionality compared to the original version as rumble and battery status are not available
-    * Also fixes the problem of node-hid not working without extra compiles
+    * Also fixes the problem of node-hid not working without extra compiles, and eliminates need to adjust udev for non-root controller access.
 * Handles clone PS3 controllers (see --clone)
 * New debugging features (see --fakeSocket and --verbose)
 * Auto-reconnect to pendant if connection fails
@@ -196,9 +196,8 @@ cd /usr/lib/node_modules/cncjs-pendant-ps3/
 sudo npm install node-hid --driver=hidraw --build-from-source --unsafe-perm
 ```
 -->
+<!--
 ### Create udev rules
-
-_TODO: Need to verify if this is actually required any more given the new game controller._
 
 In order to be able to [access the pendant as a non-root user](https://github.com/rdepena/node-Dualshock-controller#-create-udev-rules), you need to configure the udev rules.
 
@@ -225,6 +224,7 @@ exit
 ```
 
 I recommend rebooting before continuing.  
+-->
 
 ----------------------------------
 
