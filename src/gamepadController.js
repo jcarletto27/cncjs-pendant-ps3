@@ -62,18 +62,10 @@ module.exports = class {
         });        
         
         // Listen for gamepad attach events
-        gamepad.on("attach", function (id, state) {
-            console.log("attach", state.description + " (id " + id + ")");
-            this.connected = true;
-            this.event.emit('attach');
-        });        
+        gamepad.on("attach", gamepadEventAttach.bind(this));        
         
         // Listen for gamepad remove events
-        gamepad.on("remove", function (id) {
-            console.log("remove", id);
-            this.connected = false;
-            this.event.emit('remove');
-        });        
+        gamepad.on("remove", gamepadEventRemove.bind(this));        
         
         // Create a game loop and poll for events
         setInterval(gamepad.processEvents, 16);
@@ -81,6 +73,18 @@ module.exports = class {
         setInterval(gamepad.detectDevices, 500);
         // Initialize the library
         gamepad.init();
+    }
+
+    gamepadEventAttach(id, state) {
+        console.log("attach", state.description + " (id " + id + ")");
+        this.connected = true;
+        this.event.emit('attach');
+    }
+
+    gamepadEventRemove(id) {
+        console.log("remove", id);
+        this.connected = false;
+        this.event.emit('remove');
     }
 
     // allow events to be listened to
