@@ -22,7 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-const gamepad = require('gamepad')
+const gamepad = require('gamepad');
+const events = require('events');
 
 module.exports = class {
     constructor(options) {
@@ -31,6 +32,9 @@ module.exports = class {
 
         // set up some state tracking
         this.connected = false;
+
+        // set up our event handler
+        this.events = new events.EventEmitter();
 
         // Listen for move events on all gamepads
         gamepad.on("move", function (id, axis, value) {
@@ -59,19 +63,16 @@ module.exports = class {
         
         // Listen for gamepad attach events
         gamepad.on("attach", function (id, state) {
-            console.log("attach", {
-            id: id,
-            state: state,
-            });
+            console.log("attach", state.description + " (id " + id + ")");
             this.connected = true;
+            this.event.emit('attach');
         });        
         
         // Listen for gamepad remove events
         gamepad.on("remove", function (id) {
-            console.log("remove", {
-            id: id
-            });
+            console.log("remove", id);
             this.connected = false;
+            this.event.emit('remove');
         });        
         
         // Create a game loop and poll for events
@@ -80,6 +81,14 @@ module.exports = class {
         setInterval(gamepad.detectDevices, 500);
         // Initialize the library
         gamepad.init();
+    }
+
+    // allow events to be listened to
+    on(eventName, handler) {
+        this.events.on(eventName, handler);
+        // if this is an attach event, and we already have a controller, let them know
+        if (eventName == 'attach' && this.connected)
+            this.events.emit('attach');
     }
 
     // determine if we have a valid gamepad connected

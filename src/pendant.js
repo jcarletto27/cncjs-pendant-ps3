@@ -136,6 +136,8 @@ module.exports = function(options, callback) {
 
 	// initialize the gamepad system
 	gamepadController = new GamepadController();
+	gamepadController.on("attach", () => { console.log('attach event received'); });
+	gamepadController.on("remove", () => { console.log('remove event received'); });
 
 	function checkController(socket, controller) {
 		// if we already have a pendant, ignore this as we don't need to try to (re)connect
