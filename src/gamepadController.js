@@ -29,6 +29,9 @@ module.exports = class {
         // save away program options
         this.options = options;
 
+        // set up some state tracking
+        this.connected = false;
+
         // Listen for move events on all gamepads
         gamepad.on("move", function (id, axis, value) {
             console.log("move", {
@@ -56,10 +59,11 @@ module.exports = class {
         
         // Listen for gamepad attach events
         gamepad.on("attach", function (id, state) {
-            console.log("down", {
+            console.log("attach", {
             id: id,
             state: state,
             });
+            this.connected = true;
         });        
         
         // Listen for gamepad remove events
@@ -67,6 +71,7 @@ module.exports = class {
             console.log("remove", {
             id: id
             });
+            this.connected = false;
         });        
         
         // Create a game loop and poll for events
@@ -75,6 +80,11 @@ module.exports = class {
         setInterval(gamepad.detectDevices, 500);
         // Initialize the library
         gamepad.init();
+    }
+
+    // determine if we have a valid gamepad connected
+    isConnected() {
+        return this.connected;
     }
 }
 
