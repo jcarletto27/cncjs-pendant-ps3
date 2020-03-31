@@ -13,7 +13,6 @@ This is a fork of the original [cncjs-pendant-ps3 driver](https://github.com/cnc
 * Works with any joystick (not just PS3)
     * This has a small loss of functionality compared to the original version as rumble and battery status are not available
     * Also fixes the problem of node-hid not working without extra compiles, and eliminates need to adjust udev for non-root controller access.
-* Handles clone PS3 controllers (see --clone)
 * New debugging features (see --fakeSocket and --verbose)
 * Auto-reconnect to pendant if connection fails
 * Made --port (-p), --baudrate (-b) and --controllerType (-t) required parameters 
@@ -80,7 +79,7 @@ You will see a live output of the various switches and joysticks, and can test t
 
 If the above works, you can proceed to finishing the install of cncjs-pendant-ps3 below or attempt to work through getting Bluetooth wireless working.  This can be done after installing and operating on USB if desired as no configuration will change on the pendant configuration otherwise.
 
-Word of caution - getting Bluetooth working can sometimes be a challenging process, especially if using a cheap PS3 clone.
+Word of caution - getting Bluetooth working can sometimes be a challenging process.
 
 ### Install
 ```
@@ -161,9 +160,9 @@ sudo chod +x node-install.sh
 sudo node-install -v 8.17.0
 ```
 
-## Clone and install cncjs-pendant-ps3
+## Install cncjs-pendant-ps3
 
-Do the following to clone and install the cncjs-pendant-ps3 software:
+Do the following to install the cncjs-pendant-ps3 software:
 
 <!--
 
@@ -238,7 +237,6 @@ The program accepts several optional arguments:
 * `-s, --secret <secret>` The secret API key for accessing the cncjs server.  If not specified, checks if environment variable CNCJS_SECRET is set, and if not, goes directly to the ~/.cncrc file to get the secret.  Generally can be ignored when cncjs and cncjs-pendant-ps3 are on the same server, but must be specified if they are operating on difference servers.
 * `--socketAddress <address>` The IP address / DNS name of the cncjs server (default: localhost) 
 * `--socketPort <port>` The port number of the cncjs server (default: 8000)
-* `--clone` if using a cloned PS3 controller you might get a write timout when starting up.  Disables writes to controller, so rumble and led status is disabled.
 * `--accessTokenLifetime <lifetime>` How long the access token should be generated, can generally be ignored.  In seconds or a time span string (default: 30d)
 * `-v, --verbose` Display verbose (debugging) messages
 * `-f, --fake` Use a fake socket server and display cncjs messages to console instead
@@ -252,7 +250,7 @@ To start the pendant server, run a command similar to this:
 
 ```
 cd ~/cncjs-pendant-ps3
-node cncjs-pendant-ps3 -p /dev/ACM0 -b 250000 -clone -t marlin
+node cncjs-pendant-ps3 -p /dev/ACM0 -b 250000 -t marlin
 ```
 
 ## First use recommendation

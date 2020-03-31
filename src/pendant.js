@@ -281,7 +281,7 @@ module.exports = function(options, callback) {
 			firstCheck = true;
 		});
 
-		// set up the output values to the controller for led and rumble.  Note that these are disabled when --clone is used.
+		// set up the output values to the controller for led and rumble.  
 		ps3_led = 0b10000;
 		ps3_rumble_left = 0;
 		ps3_rumble_right = 0;
@@ -813,17 +813,6 @@ module.exports = function(options, callback) {
 				if (options.verbose)
 					console.log('setInterval: x' + sum_x + ' y' + sum_y);
 			}
-		}
-
-		// send controller extras (rumble, battery) but only if not a clone controller
-		if (!options.clone)
-			setInterval(updateControllerExtras, 500);
-		function updateControllerExtras() {
-			controller.setExtras({
-				rumbleLeft:  ps3_rumble_left,   // 0-1 (Rumble left on/off)
-				rumbleRight: ps3_rumble_right,   // 0-255 (Rumble right intensity)
-				led: ps3_led // 2 | 4 | 8 | 16 (Leds 1-4 on/off, bitmasked)
-			});
 		}
 
 		// controller status
