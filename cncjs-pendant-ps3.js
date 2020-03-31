@@ -33,7 +33,6 @@
 // SOFTWARE.
 
 var program = require('commander');
-var serialport = require('serialport');
 var inquirer = require('inquirer');
 var pkg = require('./package.json');
 var serverMain = require('./src/pendant');
@@ -43,7 +42,7 @@ var options = {};
 program
     .version(pkg.version)
     .usage('cncjs-pendant-ps3 -b <baud> -t <contoller> -p <port> [options]')
-	.option('-l, --list', 'list available ports then exit')
+//	.option('-l, --list', 'list available ports then exit')
 	.option('-p, --port <port>', 'path or name of serial port')
 	.option('-b, --baudrate <baudrate>', 'baud rate')
 	.option('-t, --controller-type <type>', 'controller type: Grbl|Smoothie|TinyG|Marlin')
@@ -58,7 +57,7 @@ program
 program.parse(process.argv);
 
 var options = {
-    list: program.list,
+//    list: program.list,
     secret: program.secret,
     port: program.port,
     baudrate: program.baudrate,
@@ -98,19 +97,19 @@ SOFTWARE.\n");
         return;
 }
 
-if (options.list) {
-    console.log('Available serial ports:');
-	serialport.list(function(err, ports) {
-		if (err) {
-			console.error(err);
-			process.exit(1);
-		}
-		ports.forEach(function(port) {
-			console.log(port.comName);
-		});
-	});
-	return;
-}
+// if (options.list) {
+//     console.log('Available serial ports:');
+// 	serialport.list(function(err, ports) {
+// 		if (err) {
+// 			console.error(err);
+// 			process.exit(1);
+// 		}
+// 		ports.forEach(function(port) {
+// 			console.log(port.comName);
+// 		});
+// 	});
+// 	return;
+// }
 
 var createServer = function(options) {
     serverMain(options, function(err, socket) {});

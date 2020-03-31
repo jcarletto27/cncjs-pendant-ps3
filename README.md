@@ -231,7 +231,7 @@ I recommend rebooting before continuing.
 # Running cncjs-pendant-ps3
 
 The program accepts several optional arguments:
-* `-l, --list` List available ports and then exit
+<!--* `-l, --list` List available ports and then exit -->
 * `-p, --port <port>` The port of the controller, such as /dev/ttyUSB0 or /dev/ACM0 (required)
 * `-b, --baudrate <baudrate>` The baudrate used when connecting to the controller (required)
 * `-t, --controllerType <type>` The type of controller (marlin, grbl, smoothie, tinyg) (required)
@@ -244,7 +244,7 @@ The program accepts several optional arguments:
 * `-f, --fake` Use a fake socket server and display cncjs messages to console instead
 * `--help` bring up a help listing of all options
 
-The most important options are --port (-p) to specify the communications port to the controller, --baudrate (-b) to specify the connection speed, and --controllerType (-t) to specify the type of controller you are running (Marlin, Grbl, etc).  If you don't know your port number, use the --list (-l) option to see a list of ports to try.
+The most important options are --port (-p) to specify the communications port to the controller, --baudrate (-b) to specify the connection speed, and --controllerType (-t) to specify the type of controller you are running (Marlin, Grbl, etc).  <!--If you don't know your port number, use the --list (-l) option to see a list of ports to try.-->
 
 Here is how those options are used.  If CNC.js is already connected, the port is used to locate the existing connection and no reconnection or change is made to baudrate or controller.  However, if CNC.js is not connected, then these parameters are used to establish a connection to the controller.
 
