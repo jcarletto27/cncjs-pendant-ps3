@@ -36,36 +36,12 @@ module.exports = class {
         // set up our event handler
         this.events = new events.EventEmitter();
 
-        // Listen for move events on all gamepads
-        gamepad.on("move", function (id, axis, value) {
-            console.log("move", {
-            id: id,
-            axis: axis,
-            value: value,
-            });
-        });
-        
-        // Listen for button up events on all gamepads
-        gamepad.on("up", function (id, num) {
-            console.log("up", {
-            id: id,
-            num: num,
-            });
-        });
-        
-        // Listen for button down events on all gamepads
-        gamepad.on("down", function (id, num) {
-            console.log("down", {
-            id: id,
-            num: num,
-            });
-        });        
-        
-        // Listen for gamepad attach events
-        gamepad.on("attach", gamepadEventAttach.bind(this));        
-        
-        // Listen for gamepad remove events
-        gamepad.on("remove", gamepadEventRemove.bind(this));        
+        // Listen for gamepad events
+        gamepad.on("move", this.gamepadEventRemove.bind(this));
+        gamepad.on("up", this.gamepadEventUp.bind(this));
+        gamepad.on("down", this.gamepadEventDown.bind(this));        
+        gamepad.on("attach", this.gamepadEventAttach.bind(this));        
+        gamepad.on("remove", this.gamepadEventRemove.bind(this));        
         
         // Create a game loop and poll for events
         setInterval(gamepad.processEvents, 16);
@@ -76,13 +52,27 @@ module.exports = class {
     }
 
     // PUBLIC METHODS
-    
-    // allow events to be listened to
+
+    // subscribe to a gamepad event
     on(eventName, handler) {
+        switch (eventName) {
+            case 'attach':
+            case 'remove':
+                break;
+            default:
+                console.error('GamepadController.on unknown event ' + eventName);
+                return;
+        }
         this.events.on(eventName, handler);
+
         // if this is an attach event, and we already have a controller, let them know
         if (eventName == 'attach' && this.connected)
             this.events.emit('attach');
+    }
+
+    // unsubscribed from a gamepad event
+    off(eventName, handler) {
+        this.events.off(eventName, handler);
     }
 
     // determine if we have a valid gamepad connected
@@ -104,7 +94,25 @@ module.exports = class {
         this.events.emit('remove');
     }
 
+    gamepadEventMove(id, axis, value) {
+        console.log("move", {
+        id: id,
+        axis: axis,
+        value: value,
+        });
+    }
+    gamepadEventDown(id, num) {
+        console.log("down", {
+        id: id,
+        num: num,
+        });
+    }
 
-
+    gamepadEventUp(id, num) {
+        console.log("up", {
+        id: id,
+        num: num,
+        });
+    }
 }
 

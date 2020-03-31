@@ -142,7 +142,7 @@ module.exports = function(options, callback) {
 	// locate and maintain a connection to the controller, including running the services.  This is run on a timer so we can
 	// continue to look for the controller once started, or again afterwards if the controller drops and wants to reconnect
 	setInterval(checkController, 1000);
-	checkController(socket, controller) {
+	function checkController(socket, controller) {
 		// if we already have a pendant, ignore this as we don't need to try to (re)connect
 		if (pendant_started)
 			return;
@@ -151,7 +151,7 @@ module.exports = function(options, callback) {
 
 
 		// Get HID Devices
-		var devices = HID.devices();
+		var devices = HID.devices();git
 		if (options.verbose) {
 			console.log("Devices discovered:");
 			console.log(devices);
