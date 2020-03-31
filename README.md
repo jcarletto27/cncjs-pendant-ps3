@@ -8,12 +8,16 @@ This is a fork of the original [cncjs-pendant-ps3 driver](https://github.com/cnc
 
 * Abstracted gcode to allow for support of different controllers and machines
     * Currently supports Grbl and Marlin
-    * Don't have the controller you need?  Consider adding one - it's easy!
-* Substantial improvements to README documentation
+    * Don't have the controller you need?  Consider adding one - it's easy!  Look at src/gcode-marlin.js for an example.
+* Improvements to README documentation
+* Works with any joystick (not just PS3)
+    * This has a small loss of functionality compared to the original version as rumble and battery status are not available
+    * Also fixes the problem of node-hid not working without extra compiles
 * Handles clone PS3 controllers (see --clone)
 * New debugging features (see --fakeSocket and --verbose)
 * Auto-reconnect to pendant if connection fails
-* Added computed feed speed based on distance to travel to have gantry that quickly respond to changes (for Marlin)
+* Made --port (-p), --baudrate (-b) and --controllerType (-t) required parameters 
+* Added computed feed speed based on distance to travel to have gantry that quickly respond to changes (required at least for Marlin)
 
 --------------------------------------
 
@@ -140,7 +144,24 @@ quit
 
 ----------------------------------------
 
-# Install cncjs-pendant-ps3
+# Installation
+
+## Update Node to v8
+First you need to make sure you have Node version 8 (some dependent modules do not support later versions of Node):
+
+```
+node -v
+```
+
+If you do not have node v8, this script will do the upgrade as well as ensure your global modules are all udpated:
+
+```
+wget -O - https://raw.githubusercontent.com/audstanley/NodeJs-Raspberry-Pi/master/node-install >node-install.sh
+sudo chod +x node-install.sh
+sudo node-install -v 8.17.0
+```
+
+## Clone and install cncjs-pendant-ps3
 
 Do the following to clone and install the cncjs-pendant-ps3 software:
 
@@ -159,11 +180,12 @@ sudo npm install -g cncjs-pendant-ps3 --unsafe-perm  # Install Globally
 cd ~
 git clone https://github.com/cmidgley/cncjs-pendant-ps3.git
 cd cncjs-pendant-ps3
-npm install -g
+npm install
 ```
 
 Note that there will be quite a few warnings, such as deprecated modules and compiler warnings.  You can ignore this for now, though someday work should be done fix this...!  Anyone want to attack this problem?!
 
+<!-->
 ### If not installed globally, or no pendant found
 The Dualshock controller [does not use the joystick implementation](https://github.com/rdepena/node-Dualshock-controller), and requires node-hid with hidraw to be installed.  When installing this package globally, this often works.  But if installed locally, or you find that joystick testing works but cncjs-pendant-ps3 doesn't find any pendants when it starts up, you should try installing node-hid as follows:
 
@@ -173,8 +195,10 @@ The Dualshock controller [does not use the joystick implementation](https://gith
 cd /usr/lib/node_modules/cncjs-pendant-ps3/
 sudo npm install node-hid --driver=hidraw --build-from-source --unsafe-perm
 ```
-
+-->
 ### Create udev rules
+
+_TODO: Need to verify if this is actually required any more given the new game controller._
 
 In order to be able to [access the pendant as a non-root user](https://github.com/rdepena/node-Dualshock-controller#-create-udev-rules), you need to configure the udev rules.
 
@@ -239,7 +263,7 @@ I recommend running cncjs-pendant-ps3 using the --fakeServer (or -f) first, as y
 
 # Configuring for auto-start
 
-There are many ways in Linux to configure auto-start on boot.  This example shows using [Production Process Manager [PM2]](http://pm2.io):
+There are many ways in Linux to configure auto-start on boot.  This example shows using [Production Process Manager [PM2]](http://pm2.io) (note you must replace [PATH_TO_NODE_BIN] with the path to node, which you can find with 'which node'):
 
 ```
 # Install Production Process Manager [PM2]
@@ -248,7 +272,7 @@ npm install pm2 -g
 # Setup PM2 Startup Script
 pm2 startup debian
   #[PM2] You have to run this command as root. Execute the following command:
-  sudo su -c "env PATH=$PATH:/home/pi/.nvm/versions/node/v4.5.0/bin pm2 startup debian -u pi --hp /home/pi"
+  sudo su -c "env PATH=$PATH:[PATH_TO_NODE_BIN] pm2 startup debian -u pi --hp /home/pi"
 
 # Start Dual Shock / PS3 Bluetooth Remote Pendant for CNCjs (conected to serail device @ /dev/ttyUSB0) with PM2
 pm2 start $(which cncjs-pendant-ps3) -- -p "/dev/ttyUSB0"

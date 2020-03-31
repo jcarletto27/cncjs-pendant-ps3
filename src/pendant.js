@@ -41,8 +41,7 @@ const fs = require('fs');
 const path = require('path');
 const io = require('socket.io-client');
 const jwt = require('jsonwebtoken');
-const HID = require('node-hid');
-const dualShock = require('dualshock-controller');
+const GamepadController = require('gamepadController')
 
 // generate token
 const generateAccessToken = function(payload, secret, expiration) {
@@ -134,10 +133,20 @@ module.exports = function(options, callback) {
 	// continue to look for the controller once started, or again afterwards if the controller drops and wants to reconnect
 	setInterval(checkController, 1000);
 	firstCheck = true;
+
+	// initialize the gamepad system
+	gamepadController = new GamepadController();
+
 	function checkController(socket, controller) {
 		// if we already have a pendant, ignore this as we don't need to try to (re)connect
 		if (pendant_started)
 			return;
+
+
+		return;	// hack out during tests
+
+
+
 
 		// Get HID Devices
 		var devices = HID.devices();
