@@ -37,7 +37,7 @@ module.exports = class {
         this.events = new events.EventEmitter();
 
         // Listen for gamepad events
-        gamepad.on("move", this.gamepadEventRemove.bind(this));
+        gamepad.on("move", this.gamepadEventMove.bind(this));
         gamepad.on("up", this.gamepadEventUp.bind(this));
         gamepad.on("down", this.gamepadEventDown.bind(this));        
         gamepad.on("attach", this.gamepadEventAttach.bind(this));        
