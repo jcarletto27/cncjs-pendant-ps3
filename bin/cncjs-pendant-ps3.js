@@ -54,7 +54,8 @@ program
 	.option('--vendor <vendorid>', 'use this to pass a vendor id from node-gamecontroller vendor list'
     .option('--license', 'view the MIT license agreement')
     .option('-v, --verbose', 'display verbose (debugging) messages')
-    .option('-f, --fake-socket', 'use a fake socket server and display cncjs messages to console instead');
+    .option('-f, --fake-socket', 'use a fake socket server and display cncjs messages to console instead')
+	
 program.parse(process.argv);
 
 var options = {
