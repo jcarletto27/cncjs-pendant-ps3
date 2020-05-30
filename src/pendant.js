@@ -138,7 +138,7 @@ module.exports = function (options, callback) {
         if (pendant_started)
             return;
 
-        var devices Gamecontroller.getDevices();
+        var devices = Gamecontroller.getDevices();
 		
         if (options.verbose) {
             console.log("Devices discovered:");
