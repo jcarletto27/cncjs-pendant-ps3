@@ -51,7 +51,7 @@ program
 	.option('--socket-address <address>', 'socket address or hostname', 'localhost')
 	.option('--socket-port <port>', 'socket port', 8000)
     .option('--access-token-lifetime <lifetime>', 'access token lifetime in seconds or a time span string', '30d')
-    .option('--clone', 'use when you have a clone ps3 controller and are getting write errors')
+	.option('--vendor <vendorid>', 'use this to pass a vendor id from node-gamecontroller vendor list'
     .option('--license', 'view the MIT license agreement')
     .option('-v, --verbose', 'display verbose (debugging) messages')
     .option('-f, --fake-socket', 'use a fake socket server and display cncjs messages to console instead');
