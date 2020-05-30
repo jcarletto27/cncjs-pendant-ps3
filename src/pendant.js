@@ -42,7 +42,7 @@ const path = require('path');
 const io = require('socket.io-client');
 const jwt = require('jsonwebtoken');
 const HID = require('node-hid');
-const Gamecontroller = require('gamecontroller-hidraw');
+var Gamecontroller = require('gamecontroller-hidraw');
 
 //const dualShock = require('dualshock-controller');
 
@@ -252,7 +252,7 @@ module.exports = function (options, callback) {
         });
          */
 
-        gc = new Gamecontroller();
+        var gc = new Gamecontroller();
 
         // if we get a controller error, assume we have lost the controller and start scanning for a new one
         gc.on('error', function (err) {
