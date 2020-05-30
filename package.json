@@ -1,6 +1,6 @@
 {
   "name": "cncjs-pendant-ps3",
-  "version": "1.0.9.1",
+  "version": "1.0.0",
   "description": "A cncjs pendant using the a customized node-gamecontroller module",
   "license": "MIT",
   "main": "./index.js",
