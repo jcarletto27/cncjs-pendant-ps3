@@ -8,7 +8,7 @@
     "node": ">=8"
   },
   "bin": {
-    "cncjs-pendant-ps3": "./bin/cncjs-pendant-ps3"
+    "cncjs-pendant-ps3": "./bin/cncjs-pendant-ps3.js"
   },
   "preferGlobal": true,
   "scripts": {
