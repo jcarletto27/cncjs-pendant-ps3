@@ -1,5 +1,7 @@
 # Dualshock 3 CNC pendant for CNC.js
 
+The goal of this fork is to replace the use of the Dualshock package with the more flexible node-gamecontroller package.
+
 Pendant controller for [Dualshock 3 joystick](https://www.playstation.com/en-us/explore/accessories/Dualshock-3-ps3/) for [CNC.js](cnc.js.org), allowing you to use a USB or wireless (Bluetooth) connected Dualshock 3 (Playstation 3) controller for operations like jogging, homing and manging jobs.
 
 ## Fork information
