@@ -36,7 +36,6 @@
     "serialport": "^4.0.7",
     "socket.io-client": "^1.7.2",
     "vorpal": "^1.11.4",
-    "node-gamecontroller-hidraw": "jcarletto27/node-gamecontroller-hidraw",
     "node-gyp": "^3.5.0",
     "node-pre-gyp": "^0.6.33",
     "node-hid": "^0.5.4 --driver=hidraw --build-from-source"
