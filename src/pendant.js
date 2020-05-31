@@ -277,12 +277,12 @@ module.exports = function (options, callback) {
         gc.on('Start:press', function (data) {
             start = true;
             if (options.verbose)
-                console.log(data + '|' + psx);
+                console.log(data + '|' + start);
         });
         gc.on('Start:release', function (data) {
             start = false;
             if (options.verbose)
-                console.log(data + '|' + psx);
+                console.log(data + '|' + start);
         });
 
         // select
@@ -290,13 +290,13 @@ module.exports = function (options, callback) {
         gc.on('Select:press', function (data) {
             select = true;
             if (options.verbose)
-                console.log(data + '|' + psx);
+                console.log(data + '|' + start);
         });
 
         gc.on('Select:release', function (data) {
             select = false;
             if (options.verbose)
-                console.log(data + '|' + psx);
+                console.log(data + '|' + start);
         });
 
         // L1
@@ -351,7 +351,7 @@ module.exports = function (options, callback) {
             if (options.verbose)
                 console.log(data + '|' + r2);
         });
-
+	
         // LB
         var lb = false;
         gc.on('LB:press', function (data) {
@@ -648,8 +648,8 @@ module.exports = function (options, callback) {
         });
 
         // handle commands r2
-        // r2 press + r1 + psx: spindle on
-        // r1 release w/o psx when spindle on: : spindle off
+        // r2 press + r1 + LB: spindle on
+        // r1 release w/o start when spindle on: : spindle off
 
         // spindle on state
         var spindle = false;
