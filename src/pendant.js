@@ -357,12 +357,12 @@ module.exports = function (options, callback) {
         gc.on('LB:press', function (data) {
             lb = true;
             if (options.verbose)
-                console.log('LB:press' + '|' + r2);
+                console.log('LB:press' + '|' + lb);
         });
         gc.on('LB:release', function (data) {
             lb = false;
             if (options.verbose)
-                console.log('LB:release' + '|' + r2);
+                console.log('LB:release' + '|' + lb);
         });
 
         // LB
@@ -370,12 +370,12 @@ module.exports = function (options, callback) {
         gc.on('RB:press', function (data) {
             rb = true;
             if (options.verbose)
-                console.log('RB:press' + '|' + r2);
+                console.log('RB:press' + '|' + rb);
         });
         gc.on('RB:release', function (data) {
             rb = false;
             if (options.verbose)
-                console.log('RB:release' + '|' + r2);
+                console.log('RB:release' + '|' + rb);
         });
 
         // Define the following commands:
@@ -412,7 +412,7 @@ module.exports = function (options, callback) {
 
         // Start
         gc.on('A:press', function (data) {
-            if (!r1 && !l1 && !start) {
+            if (!r1 && !l1 && !lb) {
                 sendMessage('command', options.port, 'start');
                 if (options.verbose)
                     console.log('cyclestart:' + data);
@@ -421,7 +421,7 @@ module.exports = function (options, callback) {
 
         // Stop
         gc.on('B:press', function (data) {
-            if (!r1 && !l1 && !start) {
+            if (!r1 && !l1 && !lb) {
                 sendMessage('command', options.port, 'stop');
                 if (options.verbose)
                     console.log('feedhold:' + data);
@@ -430,7 +430,7 @@ module.exports = function (options, callback) {
 
         // Pause
         gc.on('X:press', function (data) {
-            if (!r1 && !l1 && !start) {
+            if (!r1 && !l1 && !lb) {
                 sendMessage('command', options.port, 'pause');
                 if (options.verbose)
                     console.log('pause:' + data);
@@ -439,7 +439,7 @@ module.exports = function (options, callback) {
 
         // Resume
         gc.on('Y:press', function (data) {
-            if (!r1 && !l1 && !start) {
+            if (!r1 && !l1 && !lb) {
                 sendMessage('command', options.port, 'resume');
                 if (options.verbose)
                     console.log('unlock:' + data);
@@ -588,7 +588,7 @@ module.exports = function (options, callback) {
             }
 
             if (options.verbose)
-                console.log("DPad Set Movemnet: " + move_x_axis + ': ' + move_y_axis + "   | " + speed)
+                console.log("DPad Set Movement: " + move_x_axis + ': ' + move_y_axis + "   | " + speed)
         }
 
         // handle continuous movement of gantry by using a timer interval
@@ -707,7 +707,7 @@ module.exports = function (options, callback) {
             }
 
             if (options.verbose)
-                console.log('stick-left: ' + Number(data.x - 128) + ' [' + right_x + '] | ' + Number(data.y - 128) + ' [' + right_y + '] | ' + stick_left)
+                console.log('stick-left: ' + Number(coord.x - 128) + ' [' + right_x + '] | ' + Number(coord.y - 128) + ' [' + right_y + '] | ' + stick_left)
         });
         gc.on('JOYR:move', function (data) {
 		var coord = JSON.parse(data);
