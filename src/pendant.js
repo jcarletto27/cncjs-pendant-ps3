@@ -657,7 +657,7 @@ module.exports = function (options, callback) {
         // start spindle
         gc.on('R2:press', function (data) {
             if (r1 && lb) {
-                gcode.spindleOn(1000);
+                gcode.spindleOn(10000);
                 spindle = true;
                 if (options.verbose)
                     console.log('Spindle: ' + spindle);
@@ -695,11 +695,12 @@ module.exports = function (options, callback) {
         // Handle the analog sticks moving left/right/up/down
         // TODO: currently sticks are tracked separately yet do same thing - should either eliminate this or provide value from it
         gc.on('JOYL:move', function (data) {
+			var coord = JSON.parse(data);
             if (options.verbose)
-                console.log('left Moved: ' + data.x + ' | ' + Number((data.y * -1) + 255));
+                console.log('left Moved: ' + coord.x + ' | ' + Number((coord.y * -1) + 255));
             if (stick_left) {
-                left_x = data.x - 128
-                    left_y = (data.y * -1) + 128
+                left_x = coord.x - 128
+                    left_y = (coord.y * -1) + 128
             } else {
                 left_x = 0;
                 left_y = 0;
@@ -709,19 +710,20 @@ module.exports = function (options, callback) {
                 console.log('stick-left: ' + Number(data.x - 128) + ' [' + right_x + '] | ' + Number(data.y - 128) + ' [' + right_y + '] | ' + stick_left)
         });
         gc.on('JOYR:move', function (data) {
+		var coord = JSON.parse(data);
             if (options.verbose)
-                console.log('right Moved: ' + data.x + ' | ' + Number((data.y * -1) + 255));
+                console.log('right Moved: ' + coord.x + ' | ' + Number((coord.y * -1) + 255));
             if (stick_right) {
 
-                right_x = data.x - 128
-                    right_y = (data.y * -1) + 128
+                right_x = coord.x - 128
+                    right_y = (coord.y * -1) + 128
             } else {
                 right_x = 0;
                 right_y = 0;
             }
 
             if (options.verbose)
-                console.log('stick-right: ' + Number(data.x - 128) + ' [' + right_x + '] | ' + Number(data.y - 128) + ' [' + right_y + '] | ' + stick_right)
+                console.log('stick-right: ' + Number(coord.x - 128) + ' [' + right_x + '] | ' + Number(coord.y - 128) + ' [' + right_y + '] | ' + stick_right)
         });
 
         // move gantry based on sticks at a regular interval
