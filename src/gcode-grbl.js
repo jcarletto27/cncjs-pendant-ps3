@@ -69,7 +69,7 @@ module.exports = class {
     }
 	
 	moveToToolChange(){
-		this.sendMessage('command', this.options.port, 'gcode', 'G53 Z-1 F500');
+		this.sendMessage('command', this.options.port, 'gcode', 'G0 G53 Z-1 F500');
 		this.sendMessage('command', this.options.port, 'gcode', 'G53 X-850 Y-1219 F500');
 		
 		}
