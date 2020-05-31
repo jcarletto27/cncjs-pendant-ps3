@@ -696,8 +696,8 @@ module.exports = function (options, callback) {
                 stick_right = false;
 
             } else {
-                stick_left = false;
-                stick_right = false;
+                stick_left = true;
+                stick_right = true;
             }
         }
 
