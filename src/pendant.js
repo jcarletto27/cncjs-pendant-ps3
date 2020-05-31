@@ -656,7 +656,7 @@ module.exports = function (options, callback) {
 
         // start spindle
         gc.on('R2:press', function (data) {
-            if (r1 && LB) {
+            if (r1 && lb) {
                 gcode.spindleOn(1000);
                 spindle = true;
                 if (options.verbose)
@@ -666,7 +666,7 @@ module.exports = function (options, callback) {
 
         // stop spindle
         gc.on('R2:release', function (data) {
-            if (!LB && spindle) {
+            if (!lb && spindle) {
                 gcode.spindleOff();
                 spindle = false;
                 if (options.verbose)
