@@ -304,7 +304,7 @@ module.exports = function (options, callback) {
         gc.on('L1:press', function (data) {
             l1 = true;
             if (options.verbose)
-                console.log(L1:press + '|' + l1);
+                console.log("L1:press" + '|' + l1);
         });
 
         gc.on('L1:release', function (data) {
