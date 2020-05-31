@@ -139,7 +139,7 @@ module.exports = function (options, callback) {
             return;
 
         var devices = Gamecontroller.getDevices();
-		
+
         if (options.verbose) {
             console.log("Devices discovered:");
             console.log(devices);
@@ -253,7 +253,7 @@ module.exports = function (options, callback) {
          */
 
         var gc = new Gamecontroller();
-		gc.connect();
+        gc.connect();
 
         // if we get a controller error, assume we have lost the controller and start scanning for a new one
         gc.on('error', function (err) {
@@ -351,7 +351,7 @@ module.exports = function (options, callback) {
             if (options.verbose)
                 console.log('R2:release' + '|' + r2);
         });
-	
+
         // LB
         var lb = false;
         gc.on('LB:press', function (data) {
@@ -502,20 +502,20 @@ module.exports = function (options, callback) {
         });
 
         // Define the following commands with PSX being pressed:
-        // A: Coolant mist on
-        // B: Coolant off
+        // B: Coolant mist on
+        // A: Coolant off
         // X: Coolant flood on
         // Y: Home
 
         // M7 - mist on
-        gc.on('A:press', function (data) {
+        gc.on('B:press', function (data) {
             if (lb) {
                 gcode.coolantMistOn();
             }
         });
 
         // M9 - coolant off
-        gc.on('B:press', function (data) {
+        gc.on('A:press', function (data) {
             if (lb) {
                 gcode.coolantOff();
             }
@@ -624,7 +624,7 @@ module.exports = function (options, callback) {
         gc.on('S:press', function (data) {
             dpad('Y', false, data)
         });
-        
+
         gc.on('S:release', function (data) {
             move_y_axis = 0;
         });
@@ -633,7 +633,7 @@ module.exports = function (options, callback) {
         gc.on('E:press', function (data) {
             dpad('X', true, data)
         });
-        
+
         gc.on('E:release', function (data) {
             move_x_axis = 0;
         });
@@ -642,7 +642,7 @@ module.exports = function (options, callback) {
         gc.on('W:press', function (data) {
             dpad('X', false, data)
         });
-        
+
         gc.on('W:release', function (data) {
             move_x_axis = 0;
         });
@@ -690,12 +690,21 @@ module.exports = function (options, callback) {
         var stick_left = false;
         stick_right = false;
 
-        
+        if (rb) {
+            if (stick_right || stick_left) {
+                stick_left = false;
+                stick_right = false;
+
+            } else {
+                stick_left = false;
+                stick_right = false;
+            }
+        }
 
         // Handle the analog sticks moving left/right/up/down
         // TODO: currently sticks are tracked separately yet do same thing - should either eliminate this or provide value from it
         gc.on('JOYL:move', function (data) {
-			var coord = JSON.parse(data);
+            var coord = JSON.parse(data);
             if (options.verbose)
                 console.log('left Moved: ' + coord.x + ' | ' + Number((coord.y * -1) + 255));
             if (stick_left) {
@@ -710,7 +719,7 @@ module.exports = function (options, callback) {
                 console.log('stick-left: ' + Number(coord.x - 128) + ' [' + right_x + '] | ' + Number(coord.y - 128) + ' [' + right_y + '] | ' + stick_left)
         });
         gc.on('JOYR:move', function (data) {
-		var coord = JSON.parse(data);
+            var coord = JSON.parse(data);
             if (options.verbose)
                 console.log('right Moved: ' + coord.x + ' | ' + Number((coord.y * -1) + 255));
             if (stick_right) {
