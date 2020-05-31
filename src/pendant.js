@@ -464,13 +464,11 @@ module.exports = function (options, callback) {
             }
         });
 
-        // Probe
+		
+		// Lower Z 1
         gc.on('B:press', function (data) {
-            if (r1 && select) {
-                gcode.probe();
-
-                if (options.verbose)
-                    console.log('probe:' + data);
+            if (r1) {
+                move_z_axis -= 1;
             }
         });
 
@@ -499,6 +497,8 @@ module.exports = function (options, callback) {
                 move_z_axis = 0;
             }
         });
+		
+		
 
         // Define the following commands with PSX being pressed:
         // B: Coolant mist on
@@ -508,29 +508,60 @@ module.exports = function (options, callback) {
 
         // M7 - mist on
         gc.on('B:press', function (data) {
-            if (lb) {
+            if (select && !r1) {
                 gcode.coolantMistOn();
             }
         });
 
         // M9 - coolant off
         gc.on('A:press', function (data) {
-            if (lb) {
+            if (select && !r1) {
                 gcode.coolantOff();
             }
         });
 
         // M8 - flood on
         gc.on('X:press', function (data) {
-            if (lb) {
+            if (select && !r1) {
                 gcode.coolantFloodOn();
             }
         });
 
         // Home
         gc.on('Y:press', function (data) {
-            if (lb) {
+            if (select && !r1) {
                 gcode.moveGantryHome();
+            }
+        });
+		
+
+        // Tool change
+        gc.on('B:press', function (data) {
+            if (r1 && select) {
+                gcode.moveToToolChange();
+
+                
+            }
+        });
+
+        // Probe Z
+        gc.on('A:press', function (data) {
+            if (select && r1) {
+                gcode.probeZ();
+            }
+        });
+
+        //  Probe X
+        gc.on('X:press', function (data) {
+            if (select && r1) {
+                gcode.probeX();
+            }
+        });
+
+        //  Probe Y
+        gc.on('Y:press', function (data) {
+            if (select && r1) {
+                gcode.probeY();
             }
         });
 

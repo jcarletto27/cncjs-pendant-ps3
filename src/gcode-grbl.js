@@ -42,6 +42,7 @@ module.exports = class {
         this.sendMessage('command', this.options.port, 'gcode', 'G0 Z3');
         this.sendMessage('command', this.options.port, 'gcode', 'G90');
     }
+	
 	probeX() {
         this.sendMessage('command', this.options.port, 'gcode', 'G91');
         this.sendMessage('command', this.options.port, 'gcode', 'G38.2 X15 F120');
@@ -51,6 +52,7 @@ module.exports = class {
         this.sendMessage('command', this.options.port, 'gcode', 'G0 X-3');
         this.sendMessage('command', this.options.port, 'gcode', 'G90');
     }
+	
 	probeY() {
         this.sendMessage('command', this.options.port, 'gcode', 'G91');
         this.sendMessage('command', this.options.port, 'gcode', 'G38.2 Y15 F120');
@@ -65,6 +67,12 @@ module.exports = class {
     coolantMistOn() {
         this.sendMessage('command', this.options.port, 'gcode', 'M7');
     }
+	
+	moveToToolChange(){
+		this.sendMessage('command', this.options.port, 'gcode', 'G53 Z-1 F500');
+		this.sendMessage('command', this.options.port, 'gcode', 'G53 X-850 Y-1219 F500');
+		
+		}
 
     // coolant operations: flood on
     coolantFloodOn() {
