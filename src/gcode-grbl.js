@@ -72,11 +72,11 @@ module.exports = class {
 
     // turn spindle on to the specified speed
     spindleOn(speed) {
-        sendMessage('command', this.options.port, 'gcode', 'M3 S' + speed);
+        this.sendMessage('command', this.options.port, 'gcode', 'M3 S' + speed);
     }
 
     // turn spindle off
     spindleOff() {
-        sendMessage('command', this.options.port, 'gcode', 'M5');
+        this.sendMessage('command', this.options.port, 'gcode', 'M5');
     }
 };
