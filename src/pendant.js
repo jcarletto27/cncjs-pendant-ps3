@@ -365,7 +365,7 @@ module.exports = function (options, callback) {
                 console.log('LB:release' + '|' + lb);
         });
 
-        // LB
+        // RB
         var rb = false;
         gc.on('RB:press', function (data) {
             rb = true;
@@ -681,16 +681,17 @@ module.exports = function (options, callback) {
         // analog sticks
         var stick_sensitivity = 1; // Do not set below 1
 
-        var left_x = 0;
+        var left_x = 0,
         left_y = 0;
-        var right_x = 0;
+        var right_x = 0,
         right_y = 0;
 
         // safety
-        var stick_left = false;
+        var stick_left = false,
         stick_right = false;
-
-        if (rb) {
+        // RB
+       
+        gc.on('RB:press', function (data) {
             if (stick_right || stick_left) {
                 stick_left = false;
                 stick_right = false;
@@ -699,8 +700,9 @@ module.exports = function (options, callback) {
                 stick_left = true;
                 stick_right = true;
             }
-        }
-
+            if (options.verbose)
+                console.log('RB:press' + '|' + rb);
+        });
         // Handle the analog sticks moving left/right/up/down
         // TODO: currently sticks are tracked separately yet do same thing - should either eliminate this or provide value from it
         gc.on('JOYL:move', function (data) {
