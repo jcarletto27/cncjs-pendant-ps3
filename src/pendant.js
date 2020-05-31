@@ -421,7 +421,7 @@ module.exports = function (options, callback) {
 
         // Stop
         gc.on('B:press', function (data) {
-            if (!r1 && !l1 && !psx) {
+            if (!r1 && !l1 && !start) {
                 sendMessage('command', options.port, 'stop');
                 if (options.verbose)
                     console.log('feedhold:' + data);
@@ -430,7 +430,7 @@ module.exports = function (options, callback) {
 
         // Pause
         gc.on('X:press', function (data) {
-            if (!r1 && !l1 && !psx) {
+            if (!r1 && !l1 && !start) {
                 sendMessage('command', options.port, 'pause');
                 if (options.verbose)
                     console.log('pause:' + data);
@@ -439,7 +439,7 @@ module.exports = function (options, callback) {
 
         // Resume
         gc.on('Y:press', function (data) {
-            if (!r1 && !l1 && !psx) {
+            if (!r1 && !l1 && !start) {
                 sendMessage('command', options.port, 'resume');
                 if (options.verbose)
                     console.log('unlock:' + data);
