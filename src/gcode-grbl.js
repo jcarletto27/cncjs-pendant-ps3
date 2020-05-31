@@ -33,13 +33,31 @@ module.exports = class {
     }
 
     // execute a probe operation
-    probe() {
+    probeZ() {
         this.sendMessage('command', this.options.port, 'gcode', 'G91');
         this.sendMessage('command', this.options.port, 'gcode', 'G38.2 Z-15.001 F120');
         this.sendMessage('command', this.options.port, 'gcode', 'G90');
-        this.sendMessage('command', this.options.port, 'gcode', 'G10 L20 P1 Z15.001');
+        this.sendMessage('command', this.options.port, 'gcode', 'G10 L20 P1 Z19.1');
         this.sendMessage('command', this.options.port, 'gcode', 'G91');
         this.sendMessage('command', this.options.port, 'gcode', 'G0 Z3');
+        this.sendMessage('command', this.options.port, 'gcode', 'G90');
+    }
+	probeX() {
+        this.sendMessage('command', this.options.port, 'gcode', 'G91');
+        this.sendMessage('command', this.options.port, 'gcode', 'G38.2 X15 F120');
+        this.sendMessage('command', this.options.port, 'gcode', 'G90');
+        this.sendMessage('command', this.options.port, 'gcode', 'G10 L20 P1 X19.1');
+        this.sendMessage('command', this.options.port, 'gcode', 'G91');
+        this.sendMessage('command', this.options.port, 'gcode', 'G0 X-3');
+        this.sendMessage('command', this.options.port, 'gcode', 'G90');
+    }
+	probeY() {
+        this.sendMessage('command', this.options.port, 'gcode', 'G91');
+        this.sendMessage('command', this.options.port, 'gcode', 'G38.2 Y15 F120');
+        this.sendMessage('command', this.options.port, 'gcode', 'G90');
+        this.sendMessage('command', this.options.port, 'gcode', 'G10 L20 P1 Y19.1');
+        this.sendMessage('command', this.options.port, 'gcode', 'G91');
+        this.sendMessage('command', this.options.port, 'gcode', 'G0 Y-3');
         this.sendMessage('command', this.options.port, 'gcode', 'G90');
     }
 

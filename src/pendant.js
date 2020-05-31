@@ -379,28 +379,27 @@ module.exports = function (options, callback) {
         });
 
         // Define the following commands:
-        // START w/SELECT: restart
+        // START w/SELECT: unlock
         // START : cyclestart
-        // SELECT : unlock
+        
 
         // Unlock
-        gc.on('Select:press', function (data) {
-            if (!start) {
+        gc.on('Start:press', function (data) {
+            if (select) {
                 sendMessage('command', options.port, 'unlock');
+				if (options.verbose)
+                    console.log('unlock');
             }
         });
 
-        // Reset
-        gc.on('select:press', function (data) {
-            if (start) {
-                sendMessage('command', options.port, 'reset');
-            }
-        });
+        
 
         // Cyclestart
         gc.on('start:press', function (data) {
             if (!select) {
                 sendMessage('command', options.port, 'cyclestart');
+				if (options.verbose)
+                    console.log('cyclestart');
             }
         });
 
@@ -412,7 +411,7 @@ module.exports = function (options, callback) {
 
         // Start
         gc.on('A:press', function (data) {
-            if (!r1 && !l1 && !lb) {
+            if (!r1 && !l1 && !lb && !select) {
                 sendMessage('command', options.port, 'start');
                 if (options.verbose)
                     console.log('cyclestart:' + data);
@@ -467,7 +466,7 @@ module.exports = function (options, callback) {
 
         // Probe
         gc.on('B:press', function (data) {
-            if (r1) {
+            if (r1 && select) {
                 gcode.probe();
 
                 if (options.verbose)
