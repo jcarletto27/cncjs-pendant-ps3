@@ -420,7 +420,7 @@ module.exports = function (options, callback) {
 
         // Stop
         gc.on('B:press', function (data) {
-            if (!r1 && !l1 && !lb) {
+            if (!r1 && !l1 && !select) {
                 sendMessage('command', options.port, 'stop');
                 if (options.verbose)
                     console.log('feedhold:' + data);
@@ -429,7 +429,7 @@ module.exports = function (options, callback) {
 
         // Pause
         gc.on('X:press', function (data) {
-            if (!r1 && !l1 && !lb) {
+            if (!r1 && !l1 && !select) {
                 sendMessage('command', options.port, 'pause');
                 if (options.verbose)
                     console.log('pause:' + data);
@@ -438,7 +438,7 @@ module.exports = function (options, callback) {
 
         // Resume
         gc.on('Y:press', function (data) {
-            if (!r1 && !l1 && !lb) {
+            if (!r1 && !l1 && !select) {
                 sendMessage('command', options.port, 'resume');
                 if (options.verbose)
                     console.log('unlock:' + data);
@@ -453,13 +453,13 @@ module.exports = function (options, callback) {
 
         // Raise Z
         gc.on('Y:press', function (data) {
-            if (r1) {
+            if (r1 && !select) {
                 move_z_axis += 0.25;
             }
         });
 
         gc.on('Y:release', function (data) {
-            if (r1) {
+            if (r1 && !select) {
                 move_z_axis = 0;
             }
         });
@@ -467,33 +467,33 @@ module.exports = function (options, callback) {
 		
 		// Lower Z 1
         gc.on('B:press', function (data) {
-            if (r1) {
+            if (r1 && !select) {
                 move_z_axis -= 1;
             }
         });
 
         // Lower Z (Slow)
         gc.on('X:press', function (data) {
-            if (r1) {
+            if (r1 && !select) {
                 move_z_axis -= 0.05;
             }
         });
 
         gc.on('X:release', function (data) {
-            if (r1) {
+            if (r1 && !select) {
                 move_z_axis = 0;
             }
         });
 
         // Lower Z
         gc.on('A:press', function (data) {
-            if (r1) {
+            if (r1 && !select) {
                 move_z_axis -= 0.25;
             }
         });
 
         gc.on('A:release', function (data) {
-            if (r1) {
+            if (r1 && !select) {
                 move_z_axis = 0;
             }
         });
