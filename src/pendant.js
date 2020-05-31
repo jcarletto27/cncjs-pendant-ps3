@@ -253,6 +253,7 @@ module.exports = function (options, callback) {
          */
 
         var gc = new Gamecontroller();
+		gc.connect();
 
         // if we get a controller error, assume we have lost the controller and start scanning for a new one
         gc.on('error', function (err) {
