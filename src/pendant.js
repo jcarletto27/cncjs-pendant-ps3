@@ -277,12 +277,12 @@ module.exports = function (options, callback) {
         gc.on('Start:press', function (data) {
             start = true;
             if (options.verbose)
-                console.log(data + '|' + start);
+                console.log('Start:press' + '|' + start);
         });
         gc.on('Start:release', function (data) {
             start = false;
             if (options.verbose)
-                console.log(data + '|' + start);
+                console.log('Start:release' + '|' + start);
         });
 
         // select
@@ -290,13 +290,13 @@ module.exports = function (options, callback) {
         gc.on('Select:press', function (data) {
             select = true;
             if (options.verbose)
-                console.log(data + '|' + start);
+                console.log('Select:press' + '|' + select);
         });
 
         gc.on('Select:release', function (data) {
             select = false;
             if (options.verbose)
-                console.log(data + '|' + start);
+                console.log('Select:release' + '|' + select);
         });
 
         // L1
@@ -304,13 +304,13 @@ module.exports = function (options, callback) {
         gc.on('L1:press', function (data) {
             l1 = true;
             if (options.verbose)
-                console.log(data + '|' + l1);
+                console.log(L1:press + '|' + l1);
         });
 
         gc.on('L1:release', function (data) {
             l1 = false;
             if (options.verbose)
-                console.log(data + '|' + l1);
+                console.log('L1:release' + '|' + l1);
         });
 
         // R1
@@ -318,12 +318,12 @@ module.exports = function (options, callback) {
         gc.on('R1:press', function (data) {
             r1 = true;
             if (options.verbose)
-                console.log(data + '|' + r1);
+                console.log('R1:press' + '|' + r1);
         });
         gc.on('R1:release', function (data) {
             r1 = false;
             if (options.verbose)
-                console.log(data + '|' + r1);
+                console.log('R1:release' + '|' + r1);
         });
 
         // L2
@@ -331,12 +331,12 @@ module.exports = function (options, callback) {
         gc.on('L2:press', function (data) {
             l2 = true;
             if (options.verbose)
-                console.log(data + '|' + l2);
+                console.log('L2:press' + '|' + l2);
         });
         gc.on('L2:release', function (data) {
             l2 = false;
             if (options.verbose)
-                console.log(data + '|' + l2);
+                console.log('L2:release' + '|' + l2);
         });
 
         // R2
@@ -344,12 +344,12 @@ module.exports = function (options, callback) {
         gc.on('R2:press', function (data) {
             r2 = true;
             if (options.verbose)
-                console.log(data + '|' + r2);
+                console.log('R2:press' + '|' + r2);
         });
         gc.on('R2:release', function (data) {
             r2 = false;
             if (options.verbose)
-                console.log(data + '|' + r2);
+                console.log('R2:release' + '|' + r2);
         });
 	
         // LB
@@ -357,12 +357,12 @@ module.exports = function (options, callback) {
         gc.on('LB:press', function (data) {
             lb = true;
             if (options.verbose)
-                console.log(data + '|' + r2);
+                console.log('LB:press' + '|' + r2);
         });
         gc.on('LB:release', function (data) {
             lb = false;
             if (options.verbose)
-                console.log(data + '|' + r2);
+                console.log('LB:release' + '|' + r2);
         });
 
         // LB
@@ -370,12 +370,12 @@ module.exports = function (options, callback) {
         gc.on('RB:press', function (data) {
             rb = true;
             if (options.verbose)
-                console.log(data + '|' + r2);
+                console.log('RB:press' + '|' + r2);
         });
         gc.on('RB:release', function (data) {
             rb = false;
             if (options.verbose)
-                console.log(data + '|' + r2);
+                console.log('RB:release' + '|' + r2);
         });
 
         // Define the following commands:
